@@ -72,10 +72,6 @@ Users can click on nodes to select a start and end point, and watch a 🚗 move 
 
 ## 📁 Project Structure
 
-<p align="center">
-  <img src="assets/structure.png" width="300">
-</p>
-
 ```bash
 project/
 │── main.py            # UI & animation
@@ -88,10 +84,6 @@ project/
 ---
 
 ## 🧠 Workflow
-
-<p align="center">
-  <img src="assets/workflow.png" width="400">
-</p>
 
 ### Steps:
 

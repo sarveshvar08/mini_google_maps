@@ -2,14 +2,14 @@ import heapq
 
 def dijkstra(graph, start):
     pq = [(0, start)]
-    dist = {node: float('inf') for node in graph.graph}
+    dist = {node: float('inf') for node in graph}
     dist[start] = 0
-    parent = {node: None for node in graph.graph}
+    parent = {start: None}
 
     while pq:
         curr_dist, node = heapq.heappop(pq)
 
-        for neighbor, weight in graph.get_neighbors(node):
+        for neighbor, weight in graph[node]:
             new_dist = curr_dist + weight
 
             if new_dist < dist[neighbor]:
@@ -17,12 +17,15 @@ def dijkstra(graph, start):
                 parent[neighbor] = node
                 heapq.heappush(pq, (new_dist, neighbor))
 
-    return dist, parent
+    return parent
 
 
 def get_path(parent, start, end):
     path = []
-    while end is not None:
-        path.append(end)
-        end = parent[end]
+    curr = end
+
+    while curr is not None:
+        path.append(curr)
+        curr = parent.get(curr)
+
     return path[::-1]

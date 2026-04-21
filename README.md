@@ -42,7 +42,7 @@ Users can click on nodes to select a start and end point, and watch a 🚗 move 
 ### 🚗 Path Animation
 
 <p align="center">
-  <img src="assets/animation.png" width="500">
+  <img src="assets/animation.gif" width="500">
 </p>
 
 ---

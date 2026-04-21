@@ -29,3 +29,31 @@ def get_path(parent, start, end):
         curr = parent.get(curr)
 
     return path[::-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#A* (A-Star) Algorithm
+#Breadth-First Search (BFS)
+#Bellman-Ford Algorithm
+#Floyd-Warshall Algorithm

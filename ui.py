@@ -23,10 +23,10 @@ class MapUI:
     def draw_map(self):
         drawn_edges = set()
 
-        # 🚧 DRAW ROADS (ALWAYS SAME SHAPE)
+        #  DRAW ROADS (ALWAYS SAME SHAPE)
         for node in self.graph:
             x1, y1 = self.nodes[node]
-
+            # Loop through neighbors to draw roads
             for neighbor, weight in self.graph[node]:
                 if (neighbor, node) in drawn_edges:
                     continue
@@ -34,6 +34,7 @@ class MapUI:
                 x2, y2 = self.nodes[neighbor]
 
                 # ALWAYS horizontal → vertical
+                # Draw horizontal line first, then vertical
                 self.canvas.create_line(x1, y1, x2, y1, fill="#555", width=2)
                 self.canvas.create_line(x2, y1, x2, y2, fill="#555", width=2)
 
@@ -43,7 +44,7 @@ class MapUI:
 
                 drawn_edges.add((node, neighbor))
 
-        # 🏢 DRAW BUILDINGS
+        #  DRAW BUILDINGS
         for node, (x, y) in self.nodes.items():
             rect = self.canvas.create_rectangle(
                 x-20, y-20, x+20, y+20,
@@ -75,24 +76,25 @@ class MapUI:
         else:
             self.reset()
 
-    # 🚗 START ANIMATION
+    # car START ANIMATION
     def start_animation(self):
         parent = dijkstra(self.graph, self.start)
         path = get_path(parent, self.start, self.end)
 
         self.path_coords = []
-
+        # convert path to coordinates
         for i in range(len(path)-1):
             x1, y1 = self.nodes[path[i]]
             x2, y2 = self.nodes[path[i+1]]
 
             steps = 25
 
-            # 🚀 EXACT SAME LOGIC AS ROAD DRAWING
+            # EXACT SAME LOGIC AS ROAD DRAWING
             # horizontal → vertical
 
             # horizontal movement
             for t in range(steps):
+                #linear interpolation (LERP)
                 x = x1 + (x2 - x1) * t / steps
                 y = y1
                 self.path_coords.append((x, y))
@@ -100,6 +102,7 @@ class MapUI:
             # vertical movement
             for t in range(steps):
                 x = x2
+                # linear interpolation (LERP)
                 y = y1 + (y2 - y1) * t / steps
                 self.path_coords.append((x, y))
 
@@ -110,11 +113,11 @@ class MapUI:
             self.canvas.delete(self.car)
 
         x, y = self.path_coords[0]
-        self.car = self.canvas.create_text(x, y, text="🚗", font=("Arial", 16))
+        self.car = self.canvas.create_text(x, y, text="🚗", font=("Arial", 16), fill="white")
 
         self.animate_car()
 
-    # 🎬 ANIMATION LOOP
+    #  ANIMATION LOOP
     def animate_car(self):
         if self.step_index >= len(self.path_coords):
             return
@@ -127,7 +130,7 @@ class MapUI:
 
         self.root.after(30, self.animate_car)
 
-    # 🔄 RESET
+    #  RESET
     def reset(self):
         self.canvas.delete("all")
         self.start = None

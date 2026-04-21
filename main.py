@@ -2,7 +2,7 @@ import tkinter as tk
 from ui import MapUI
 
 root = tk.Tk()
-root.title("Mini Google Maps - Advanced 🚀")
+root.title("Mini Google Maps")
 
 app = MapUI(root)
 
